@@ -14,11 +14,15 @@ using namespace cimg_library;
 
 
 
+template<typename T>
+CImg<T> sigma(const CImg<T> & origin){
 
 
+
+}
 
 template<typename T, typename S>
-CImg<T> filter(const CImg<T> & origin,const CImgList<S> & masks){
+CImg<T> phase(const CImg<T> & origin,const CImgList<S> & masks){
 
     if(masks.size() > 2)
         throw std::runtime_error("Too many masks");
@@ -27,16 +31,32 @@ CImg<T> filter(const CImg<T> & origin,const CImgList<S> & masks){
     for(unsigned int i = 0; i < masks.size(); ++i)
         results(i) = origin.get_convolve(masks(i));
 
-    return -results(1).atan2(results(0));
+    return results(1).atan2(results(0));
 }
 
 template<typename T>
-CImg<T> getGradient(const CImg<T> & origin){
+CImg<T> gradientNorme(const CImg<T>& origin){
+
+    CImgList<int> masks(2, 3, 3);
+
+    masks(0) = CImg<int>(3, 3, 1, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1);
+    masks(1) = CImg<int>(3, 3, 1, 1, -1, -1, -1, 0, 0, 0, 1, 1, 1);
+
+    CImgList<T> results(masks.size(), origin);
+
+    for(unsigned int i = 0; i < masks.size(); ++i)
+        results(i) = origin.get_convolve(masks(i));
+
+    return sqrt( results(0) * results(0) + results(1) * results(1));
+}
+
+template<typename T>
+CImg<T> getGradientPhase(const CImg<T> & origin){
     CImgList<int> masks(2, 3, 3);
     masks(0) = CImg<int>(3, 3, 1, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1);
     masks(1) = CImg<int>(3, 3, 1, 1, -1, -1, -1, 0, 0, 0, 1, 1, 1);
 
-    return filter(origin.get_channel(0), masks);
+    return phase(origin, masks);
 }
 
 template<typename T>
@@ -62,9 +82,9 @@ int main(int argc, char **argv) {
     std::cout << "Begin"<<std::endl;
 
     CImg<float>
-        img("./img/lena.bmp" );
+            img("./img/im.bmp" );
 
-    (getGradient(img.get_channel(0))).display();
+    (gradientNorme(img.get_channel(0))).display();
 
     //(filtre(img)).display();
 
