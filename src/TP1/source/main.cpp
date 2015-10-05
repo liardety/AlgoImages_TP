@@ -12,7 +12,14 @@ const std::string c_imgSrc("./../img/");
 using namespace cimg_library;
 
 
+CImgList<int> getGradientMasks() {
+    CImgList<int> masks(2, 3, 3);
 
+    masks(0) = CImg<int>(3, 3, 1, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1);
+    masks(1) = CImg<int>(3, 3, 1, 1, -1, -1, -1, 0, 0, 0, 1, 1, 1);
+
+    return masks;
+}
 
 template<typename T>
 CImg<T> sigma(const CImg<T> & origin){
@@ -34,13 +41,9 @@ CImg<T> phase(const CImg<T> & origin,const CImgList<S> & masks){
     return results(1).atan2(results(0));
 }
 
-template<typename T>
-CImg<T> gradientNorme(const CImg<T>& origin){
+template<typename T, typename S>
+CImg<T> getNorme(const CImg<T>& origin, const CImgList<S> & masks){
 
-    CImgList<int> masks(2, 3, 3);
-
-    masks(0) = CImg<int>(3, 3, 1, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1);
-    masks(1) = CImg<int>(3, 3, 1, 1, -1, -1, -1, 0, 0, 0, 1, 1, 1);
 
     CImgList<T> results(masks.size(), origin);
 
@@ -58,6 +61,23 @@ CImg<T> getGradientPhase(const CImg<T> & origin){
 
     return phase(origin, masks);
 }
+
+template<typename T>
+CImg<T> generateImgTp3(const CImg<T> & first, const CImg<T> & second) {
+    CImgList<T> firstFft = first.get_FFT(false),
+        secondFft = second.get_FFT(false),
+        resultFft(2, std::max(first.width(), second.width()), std::max(first.height(), second.height())),
+        final(2);
+    firstFft(0).display();
+    resultFft(0) = sqrt(firstFft(0).get_mul(firstFft(0)) + firstFft(1).get_mul(firstFft(1)) );
+    resultFft(1) = secondFft(1).atan2(secondFft(0));
+
+    final(0) = resultFft(0).get_mul(resultFft(1).get_cos());
+    final(1) = resultFft(0).get_mul(resultFft(1).get_sin());
+
+    return final.get_FFT(true)(0);
+}
+
 
 template<typename T>
 CImg<T> tp1(const CImg<T> & origin ){
@@ -84,8 +104,8 @@ int main(int argc, char **argv) {
     CImg<float>
             img("./img/im.bmp" );
 
-    (gradientNorme(img.get_channel(0))).display();
-
+    //(gradientNorme(img.get_channel(0))).display();
+    (generateImgTp3(CImg<float>("./img/clown.bmp"), CImg<float>("./img/gatlin.bmp"))).display();
     //(filtre(img)).display();
 
     while(!std::cin);
