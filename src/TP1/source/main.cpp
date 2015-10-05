@@ -62,13 +62,23 @@ CImg<T> getGradientPhase(const CImg<T> & origin){
     return phase(origin, masks);
 }
 
+
+template<typename T>
+CImg<T> getNorme(const CImgList<T> & origin) {
+    if(origin.size() != 2)
+        throw std::runtime_error("Incorrect number of img in the list");
+
+    return sqrt(origin(0).get_mul(origin(0)) + origin(1).get_mul(origin(1)));
+}
+
 template<typename T>
 CImg<T> generateImgTp3(const CImg<T> & first, const CImg<T> & second) {
     CImgList<T> firstFft = first.get_FFT(false),
         secondFft = second.get_FFT(false),
-        resultFft(2, std::max(first.width(), second.width()), std::max(first.height(), second.height())),
+        resultFft(2),
         final(2);
-    firstFft(0).display();
+
+
     resultFft(0) = sqrt(firstFft(0).get_mul(firstFft(0)) + firstFft(1).get_mul(firstFft(1)) );
     resultFft(1) = secondFft(1).atan2(secondFft(0));
 
@@ -105,8 +115,12 @@ int main(int argc, char **argv) {
             img("./img/im.bmp" );
 
     //(gradientNorme(img.get_channel(0))).display();
-    (generateImgTp3(CImg<float>("./img/clown.bmp"), CImg<float>("./img/gatlin.bmp"))).display();
+    //(generateImgTp3(CImg<float>("./img/clown.bmp"), CImg<float>("./img/gatlin.bmp"))).display();
     //(filtre(img)).display();
+    (
+            getNorme(CImg<float>("./img/lena_trame.bmp").get_FFT(false)),
+            getNorme(CImg<float>("./img/lena.bmp").get_FFT(false))
+    ).display();
 
     while(!std::cin);
 
