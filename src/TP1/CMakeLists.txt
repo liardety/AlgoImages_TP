@@ -6,7 +6,7 @@ endif(COMMAND cmake_policy)
 
 project(AlgoImage_TP1 CXX C)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wfatal-errors -I")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wfatal-errors -O2 -lgdi32 -std=c++0x")
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -pg")
 
 
@@ -43,7 +43,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     set(ADDITIONAL_LIBS "mingw32")
 endif()
 
-add_executable(AlgoImage_TP1 ${source_files} include/CImg.h)
+add_executable(AlgoImage_TP1 ${source_files} include/CImg.h include/PeronaMalik.h)
 target_link_libraries(AlgoImage_TP1 m ${ADDITIONAL_LIBS} )
 
 file( GLOB IMG "img/*")
