@@ -136,9 +136,6 @@ CImg<> PeronaMalik2D(
     CImg<T> imageOut(imageIn);
     std::vector<CImgList<CImg<T> > > gradient(2);
 
-
-
-
     std::vector<double (*)(const T &, const U &)> func = {getG_a, getG_b };
     //GetGradient
 
@@ -164,13 +161,78 @@ CImg<> PeronaMalik2D(
 
     return imageOut;
 };
+//====================================================================================
+// TP6
+//====================================================================================
+
+CImg<> avg_filter_3x3( const CImg<> & orig){
+
+    static const CImg<float> mask(3,3,1,1, 1/9 );
+
+    return orig.get_convolve(mask);
+}
+CImgList<> avg_filter_3x3(const CImgList<> & orig){
+    CImgList<> result(orig);
+    for(unsigned int i = 0; i < orig.size(); ++i) {
+        result(i) = avg_filter_3x3(orig(i));
+        ++i;
+    }
+    return result;
+}
+
+CImg<> HornSchunck(CImg<> seq)
+{
+
+    CImg<> field(seq.width(),seq.height(),1,2);
+
+    CImgList<> gradient = seq.get_gradient("xyz");
+    double factor = 0;
+    cimg_forXYC(field,x,y,v)
+    field(x,y,v) = 0.01;
+
+    CImgList<> UV(2, seq.width(),seq.height(),1,1,0.f),
+        UV_avg(UV),
+        UV_2(UV);
+
+    static const unsigned int k_max = 5;
+    static const double lambda = 10;
+
+    double denominator = 0;
+    for(unsigned int k = 0; k <= k_max; ++k ) {
+        UV_avg = avg_filter_3x3(UV);
+
+        cimg_forXY(seq, x, y){
+            denominator =
+                    (lambda * lambda) +
+                    gradient(0)(x,y) * gradient(0)(x,y) +
+                    gradient(1)(x,y) * gradient(1)(x,y);
+
+            factor = (gradient(0)(x,y) *
+                    UV_avg(0)(x,y) +
+                    gradient(1)(x,y) *
+                    UV_avg(1)(x,y) +
+                    gradient(2)(x,y) )
+                 /denominator;
+
+            for(unsigned int i = 0; i <= 1 ; ++i)
+                UV_2(i) = UV_avg(i) - gradient(i) * factor;
+
+        }
+    }
+
+    cimg_forXYC(field,x,y,c)
+    field(x,y,c) = UV_2(c)(x,y);
+
+
+    return field;
+}
 
 
 int main(int argc, char **argv) {
     std::cout << "Begin"<<std::endl;
 
-    CImg<float>
-            img("./img/gatlin.bmp");
+    //CImg<float>
+      //      img("./img/gatlin.bmp");
 
     //(gradientNorme(img.get_channel(0))).display();
     //(generateImgTp3(CImg<float>("./img/clown.bmp"), CImg<float>("./img/gatlin.bmp"))).display();
@@ -185,11 +247,23 @@ int main(int argc, char **argv) {
     ).display();
     */
 
-    (
-            PeronaMalik2D(img, 30,0, 1, 0.2)
-    ).display();
-    while(!std::cin);
+    CImg<> seq = CImg<>("./img/rubic1.bmp").channel(0);
+    seq.append(CImg<>("./img/rubic2.bmp").channel(0),'z');
 
+
+    (CImg<>("./img/rubic1.bmp")).display();
+
+    CImg<> displacementHS = HornSchunck(seq);
+    float color=500; unsigned int  sampling = 8; float  factor = 40; int  quiver_type = 0; float  opacity = 0.5;
+
+    CImg<> imageHS = seq.get_slice(0).draw_quiver(displacementHS,&color,opacity,sampling,factor,quiver_type);
+    CImgDisplay resHS_disp(imageHS,"Horn et Schunck");
+
+    while (!resHS_disp.is_closed())
+    {
+
+        resHS_disp.wait();
+    }
     std::cout << "End"<<std::endl;
     return 1;
 }
