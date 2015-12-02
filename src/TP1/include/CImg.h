@@ -1,3 +1,4 @@
+#define _fileno(F) ((F)->_file)
 /*
  #
  #  File            : CImg.h
@@ -4787,6 +4788,9 @@ namespace cimg_library_suffixed {
       if (*path=='-' && (!path[1] || path[1]=='.')) {
         res = (*mode=='r')?stdin:stdout;
 #if cimg_OS==2
+
+
+
         if (*mode && mode[1]=='b') { // Force stdin/stdout to be in binary mode.
           if (_setmode(_fileno(res),0x8000)==-1) res = 0;
         }

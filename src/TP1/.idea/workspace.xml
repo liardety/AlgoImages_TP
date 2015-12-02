@@ -13,13 +13,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2e92dfe-9460-4c07-a690-66948f61602b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/include/Distance.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/include/KFCM.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/include/Kernel.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/TP1.iml" afterPath="$PROJECT_DIR$/.idea/TP1.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/include/CImg.h" afterPath="$PROJECT_DIR$/include/CImg.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sample/main.cpp" afterPath="$PROJECT_DIR$/sample/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/main.cpp" afterPath="$PROJECT_DIR$/source/main.cpp" />
     </list>
     <ignored path="TP1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,11 +41,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0250896">
-              <caret line="26" column="41" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
+            <state vertical-scroll-proportion="-4.4">
+              <caret line="8" column="75" selection-start-line="8" selection-start-column="75" selection-end-line="8" selection-end-column="75" />
               <folding />
             </state>
           </provider>
@@ -54,14 +55,8 @@
         <entry file="file://$PROJECT_DIR$/source/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#43#73#0" expanded="false" />
-                <element signature="e#527#539#0" expanded="false" />
-                <element signature="e#592#616#0" expanded="false" />
-                <element signature="e#964#988#0" expanded="false" />
-                <element signature="e#3263#3300#0" expanded="false" />
-              </folding>
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -73,20 +68,6 @@
               <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding />
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clown.bmp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/img/clown.bmp">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lena.bmp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/img/lena.bmp">
-          <provider selected="true" editor-type-id="images">
-            <state />
           </provider>
         </entry>
       </file>
@@ -104,18 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gatlin.bmp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/img/gatlin.bmp">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CImg.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/CImg.h">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="4790" column="0" selection-start-line="4790" selection-start-column="0" selection-end-line="4790" selection-end-column="0" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -125,8 +99,53 @@
         <entry file="file://$PROJECT_DIR$/sample/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="146" column="0" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Kernel.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/Kernel.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <folding>
+                <element signature="e#99#115#0" expanded="true" />
+                <element signature="e#215#246#0" expanded="true" />
+                <element signature="e#481#498#0" expanded="true" />
+                <element signature="e#676#706#0" expanded="true" />
+                <marker date="1449071718226" expanded="true" signature="775:832" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="KFCM.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/include/KFCM.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7494692">
+              <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+              <folding>
+                <element signature="e#95#114#0" expanded="true" />
+                <element signature="e#172#184#0" expanded="true" />
+                <element signature="e#433#470#0" expanded="true" />
+                <element signature="e#716#728#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Distance.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/Distance.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
+              <folding>
+                <element signature="e#131#143#0" expanded="true" />
+                <element signature="e#211#254#0" expanded="true" />
+                <element signature="e#339#351#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -144,8 +163,12 @@
         <option value="$PROJECT_DIR$/cours/Fourier.md" />
         <option value="$PROJECT_DIR$/include/PeronaMalik.h" />
         <option value="$PROJECT_DIR$/source/main.cpp" />
-        <option value="$PROJECT_DIR$/sample/main.cpp" />
+        <option value="$PROJECT_DIR$/include/Distance.h" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/sample/main.cpp" />
+        <option value="$PROJECT_DIR$/include/CImg.h" />
+        <option value="$PROJECT_DIR$/include/Kernel.h" />
+        <option value="$PROJECT_DIR$/include/KFCM.h" />
       </list>
     </option>
   </component>
@@ -213,6 +236,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="sample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TP1" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TP1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="include" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -224,9 +261,9 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
     <property name="recentsLimit" value="5" />
-    <property name="FullScreen" value="false" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files (x86)\nodejs\node.exe" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -237,8 +274,15 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.AlgoImage_TP1">
+    <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="AlgoImage" TARGET_NAME="AlgoImage" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="AlgoImage_TP1" TARGET_NAME="AlgoImage_TP1" CONFIG_NAME="Debug">
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -247,6 +291,12 @@
       <tasks />
       <arguments />
       <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
       <envs />
       <method />
     </configuration>
@@ -284,13 +334,13 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21674615" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3238958" sideWeight="0.5698471" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.53567386" sideWeight="0.42698997" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32312927" sideWeight="0.5698471" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.53514737" sideWeight="0.42698997" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32599118" sideWeight="0.5197861" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32599118" sideWeight="0.49815497" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32539684" sideWeight="0.4802139" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32539684" sideWeight="0.4802139" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3270925" sideWeight="0.47285187" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1802721" sideWeight="0.47285187" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39955604" sideWeight="0.4981393" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -318,35 +368,14 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/img/lena.bmp">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/gatlin.bmp">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cours/filtrage.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cours/Fourier.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/CImg.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4790" column="0" selection-start-line="4790" selection-start-column="0" selection-end-line="4791" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#4481#4634#0" expanded="false" />
+            <element signature="e#304159#304939#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -362,13 +391,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#43#73#0" expanded="false" />
-            <element signature="e#527#539#0" expanded="false" />
-            <element signature="e#592#616#0" expanded="false" />
-            <element signature="e#964#988#0" expanded="false" />
-            <element signature="e#3263#3300#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -410,7 +433,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4790" column="0" selection-start-line="4790" selection-start-column="0" selection-end-line="4791" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#4481#4634#0" expanded="false" />
+            <element signature="e#304159#304939#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -426,13 +452,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#43#73#0" expanded="false" />
-            <element signature="e#527#539#0" expanded="false" />
-            <element signature="e#592#616#0" expanded="false" />
-            <element signature="e#964#988#0" expanded="false" />
-            <element signature="e#3263#3300#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -474,7 +494,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4790" column="0" selection-start-line="4790" selection-start-column="0" selection-end-line="4791" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#4481#4634#0" expanded="false" />
+            <element signature="e#304159#304939#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -490,13 +513,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#43#73#0" expanded="false" />
-            <element signature="e#527#539#0" expanded="false" />
-            <element signature="e#592#616#0" expanded="false" />
-            <element signature="e#964#988#0" expanded="false" />
-            <element signature="e#3263#3300#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -518,7 +535,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4790" column="0" selection-start-line="4790" selection-start-column="0" selection-end-line="4791" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#4481#4634#0" expanded="false" />
+            <element signature="e#304159#304939#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -534,13 +554,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#43#73#0" expanded="false" />
-            <element signature="e#527#539#0" expanded="false" />
-            <element signature="e#592#616#0" expanded="false" />
-            <element signature="e#964#988#0" expanded="false" />
-            <element signature="e#3263#3300#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -555,7 +569,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4790" column="0" selection-start-line="4790" selection-start-column="0" selection-end-line="4791" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#4481#4634#0" expanded="false" />
+            <element signature="e#304159#304939#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -571,13 +588,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#43#73#0" expanded="false" />
-            <element signature="e#527#539#0" expanded="false" />
-            <element signature="e#592#616#0" expanded="false" />
-            <element signature="e#964#988#0" expanded="false" />
-            <element signature="e#3263#3300#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -585,7 +596,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4790" column="0" selection-start-line="4790" selection-start-column="0" selection-end-line="4791" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#4481#4634#0" expanded="false" />
+            <element signature="e#304159#304939#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -601,13 +615,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#43#73#0" expanded="false" />
-            <element signature="e#527#539#0" expanded="false" />
-            <element signature="e#592#616#0" expanded="false" />
-            <element signature="e#964#988#0" expanded="false" />
-            <element signature="e#3263#3300#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -615,7 +623,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4790" column="0" selection-start-line="4790" selection-start-column="0" selection-end-line="4791" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#4481#4634#0" expanded="false" />
+            <element signature="e#304159#304939#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -658,25 +669,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img/TwoLeaveShop2front0330.bmp">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#43#73#0" expanded="false" />
-            <element signature="e#527#539#0" expanded="false" />
-            <element signature="e#592#616#0" expanded="false" />
-            <element signature="e#964#988#0" expanded="false" />
-            <element signature="e#3263#3300#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/PeronaMalik.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -685,10 +677,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/CImg.h">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="4790" column="0" selection-start-line="4790" selection-start-column="0" selection-end-line="4790" selection-end-column="0" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.4">
+          <caret line="8" column="75" selection-start-line="8" selection-start-column="75" selection-end-line="8" selection-end-column="75" />
           <folding />
         </state>
       </provider>
@@ -696,16 +704,63 @@
     <entry file="file://$PROJECT_DIR$/sample/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="146" column="0" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+    <entry file="file://$PROJECT_DIR$/include/Distance.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0250896">
-          <caret line="26" column="41" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
+          <folding>
+            <element signature="e#131#143#0" expanded="true" />
+            <element signature="e#211#254#0" expanded="true" />
+            <element signature="e#339#351#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/CImg.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38530466">
+          <caret line="10326" column="38" selection-start-line="10326" selection-start-column="38" selection-end-line="10326" selection-end-column="38" />
+          <folding>
+            <element signature="e#4481#4634#0" expanded="false" />
+            <element signature="e#304159#304939#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/TwoLeaveShop2front0330.bmp">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/Kernel.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding>
+            <element signature="e#99#115#0" expanded="true" />
+            <element signature="e#215#246#0" expanded="true" />
+            <element signature="e#481#498#0" expanded="true" />
+            <element signature="e#676#706#0" expanded="true" />
+            <marker date="1449071718226" expanded="true" signature="775:832" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/KFCM.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7494692">
+          <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+          <folding>
+            <element signature="e#95#114#0" expanded="true" />
+            <element signature="e#172#184#0" expanded="true" />
+            <element signature="e#433#470#0" expanded="true" />
+            <element signature="e#716#728#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
