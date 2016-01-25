@@ -24,7 +24,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     set(ADDITIONAL_LIBS "mingw32")
 endif()
 
-add_executable(AlgoImage ${source_files} include/Kernel.h include/Distance.h include/KFCM.h)
+add_executable(AlgoImage ${source_files} include/Kernel.h include/Distance.h include/KFCM.h sample/KFCM.cpp)
 
 file(GLOB IMG "img/*")
 file(COPY ${IMG} DESTINATION ${CMAKE_BINARY_DIR}/img)

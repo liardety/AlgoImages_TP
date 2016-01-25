@@ -2,7 +2,6 @@
 // Created by Patataa on 21/09/2015.
 //
 #include "./../include/CImg.h"
-#include "./../include/PeronaMalik.h"
 
 #include <string>
 #include <iostream>
