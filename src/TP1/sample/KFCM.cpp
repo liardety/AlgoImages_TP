@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
 
     const CImg<> origin((fileLocation + filename).c_str());
     CImgList<> clusters(nbCluster, origin.width(), origin.height(), 1,1, 1.0 / float(nbCluster) );
-    CImgList<> clustersSave(clusters); // sauvegarde de l'itération précédente pour le critaire d'arrêt.
+    CImgList<> clustersSave(clusters); // sauvegarde de l'itération précédente pour le critère d'arrêt.
     std::vector<float> nu(nbCluster);
 
     // initialisation des nu
@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
                 denomi += computedKernel;
                 nume += computedKernel * (ptrOrigin + k);
             }
-            assert(denomi == 0);
+            assert(denomi != 0);
             nu[i] = nume / denomi;
         }
         
@@ -62,10 +62,10 @@ int main(int argc, char **argv) {
         const float* ptrOrigin = Origin.data();
         for( unsigned int k = 0; k < tailleBuffer; ++k){  // iteration sur les pixels 
           float denomi = 0;
-          for(unsigned int j = 0; j < nbCluster; ++j){  // calcul de dénominateur nécessitant une sommation pour toutes les classes
+          for(unsigned int j = 0; j < nbCluster; ++j){  // calcul de dénominateur nécessitant une somme pour toutes les classes
             denomi += std::pow(1 - Kernel<float, EuclidianDistance<float>>(*(ptrOrigin + k), nu[j]));
           }
-          assert(denomi == 0);
+          assert(denomi != 0);
           for(unsigned int i = 0; i < nbCluster; ++i){  // calcul pour chaque classe
             *(clusters[i].data() + k) = std::pow(1 - Kernel<float, EuclidianDistance<float>>(*(ptrOrigin + k), nu[i])) / denomi;
           }
@@ -76,10 +76,11 @@ int main(int argc, char **argv) {
         float maxi = 0;
         for(unsigned int i = 0; i < nbCluster; ++i){  // iteration sur les classes
             for(unsigned int k = 0; k < tailleBuffer; ++k){  // iteration sur les pixels
-                maxi = std::max(max, std::abs((clusters[i].data() + k) - (clustersSave[i].data() + k)));
+                maxi = std::max(max, std::abs((*(clusters[i].data() + k)) - (*(clustersSave[i].data() + k))));
             }
         }
         end = (maxi < epsilon);
+        clustersSave = clusters;
     }
 
 
