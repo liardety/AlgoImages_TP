@@ -10,7 +10,7 @@
 #include <cmath>
 
 //TODO : define a correct value
-static const c = 10;
+static const unsigned c = 10;
 template <typename T, typename  KernelFunctorType>
 struct partitionCoeff{
     const T m_constA;

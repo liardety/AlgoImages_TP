@@ -24,6 +24,9 @@ struct Kernel{
     T operator()(Object && a, Object && b)const {
         return std::exp(- m_distance(std::forward<Object>(a),std::forward<Object>(b)) / (m_sigmaSquare) );
     }
+    
+    // TODO : refaire l'implémentation en tenant compte du fait que la fonction de CImg get_distance retourne une CImg.
+    
 
 };
 
