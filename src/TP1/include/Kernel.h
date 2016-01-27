@@ -12,7 +12,7 @@
 // -> Kernel d'un pixel et de lui même = 1
 template<typename T, typename  Functor>
 struct Kernel{
-    Functor m_distance;
+    const Functor & m_distance;
     const T m_sigmaSquare;
 
     Kernel(Functor && distance, const T & sigma) :
