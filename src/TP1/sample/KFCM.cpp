@@ -15,11 +15,11 @@
 using namespace cimg_library;
 
 static const int nbCluster = 2;
-static const unsigned int tMax = 10;
-static const double epsilon = 0.01;
+static const unsigned int tMax = 200;
+static const double epsilon = 0.001;
 static const double fuzzyCoef = 2;
 
-static const double sigma = 1;
+static const double sigma = 150;
 
 
 int main(int argc, char **argv) {
@@ -36,12 +36,10 @@ int main(int argc, char **argv) {
     CImgList<> clustersSave(clusters); // sauvegarde de l'itération précédente pour le critaire d'arrêt.
     std::vector<float> nu(nbCluster);
 
-    // initialisation des nu
-    for(unsigned int i = 0; i < nbCluster; ++i){
-        nu.push_back((i / nbCluster) * 255.0);
+    float valueInit = 255 / nbCluster;
+    for(unsigned int i = 0; i < nbCluster; ++i) {
+        nu[i] = valueInit * i;
     }
-
-
 
     std::cout << epsilon << std::endl;
     CImgDisplay disp(origin,"Input Image");
@@ -61,24 +59,28 @@ int main(int argc, char **argv) {
             const float* ptrOrigin = origin.data();
             float denomi = 0;
             float nume = 0;
+
             for( unsigned int k = 0; k < tailleBuffer; ++k ){  // iteration sur les pixels
 
-                float computedKernel = std::pow(*(ptrCluster + k), fuzzyCoef) * kernel(*(ptrOrigin + k) + 0.001, nu[i]);
+                float computedKernel = std::pow(*(ptrCluster + k), fuzzyCoef) * kernel(*(ptrOrigin + k), nu[i]);
                 denomi += computedKernel;
                 nume += computedKernel * *(ptrOrigin + k);
             }
             assert(denomi != 0);
+
             nu[i] = nume / denomi;
+            std::cout<<"Nu i : " <<i << " : " << nu[i] << std::endl;
         }
         
 
 
         // mise à jour des clusters 
         const float* ptrOrigin = origin.data();
+
         for( unsigned int k = 0; k < tailleBuffer; ++k){  // iteration sur les pixels 
           float denomi = 0;
           for(unsigned int j = 0; j < nbCluster; ++j){  // calcul de dénominateur nécessitant une sommation pour toutes les classes
-            denomi += std::pow(1 - kernel(*(ptrOrigin + k), nu[j]) + 0.0001, -1/(fuzzyCoef-1));
+            denomi += std::pow(1 - kernel(*(ptrOrigin + k), nu[j]), -1/(fuzzyCoef-1));
           }
           assert(denomi != 0);
           for(unsigned int i = 0; i < nbCluster; ++i){  // calcul pour chaque classe
@@ -86,15 +88,33 @@ int main(int argc, char **argv) {
           }
         }
         
-        //test d'arrêt
 
-        float maxi = 0;
-        for(unsigned int i = 0; i < nbCluster; ++i){  // iteration sur les classes
-            for(unsigned int k = 0; k < tailleBuffer; ++k){  // iteration sur les pixels
-                maxi = std::max(maxi, float(std::abs((clusters(i).data() + k) - (clustersSave(i).data() + k))));
+
+        //TODO : ameliorer le calcul de somme des différence pour l'epsilon
+        double sumDiff = 0;
+        //Filter the buffers
+        for(unsigned int k = 0; k < tailleBuffer; ++k){
+            unsigned int clusterOwner = 0;
+            float max = 0;
+            for(unsigned int i = 0; i < nbCluster; ++i){  // iteration sur les classes
+              // iteration sur les pixels
+                float * pixel = (clusters(i).data() + k);
+                float value = *pixel;
+                *pixel = 0;
+                if(  value > max) {
+                    max = value;
+                    clusterOwner = i;
+                }
+                sumDiff += *(clusters(i).data() + k) - *(clustersSave(i).data() + k));
             }
+
+            *(clusters(clusterOwner).data() + k) = 255;
         }
-        end = (maxi < epsilon);
+
+        sumDiff /= tailleBuffer * nbCluster;
+        end = (sumDiff < epsilon);
+        clustersSave = clusters;
+        std::cout << "T : " << t << " Epsilon : " <<sumDiff<<  std::endl;
     }
 
 
