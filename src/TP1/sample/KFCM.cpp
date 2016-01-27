@@ -93,6 +93,7 @@ int main(int argc, char **argv) {
         //TODO : ameliorer le calcul de somme des différence pour l'epsilon
         double sumDiff = 0;
         //Filter the buffers
+        //Operation de tri des pixels : un pixel de Uik n'appartient en fin de boucle qu'à un seul cluster
         for(unsigned int k = 0; k < tailleBuffer; ++k){
             unsigned int clusterOwner = 0;
             float max = 0;
@@ -105,7 +106,7 @@ int main(int argc, char **argv) {
                     max = value;
                     clusterOwner = i;
                 }
-                sumDiff += *(clusters(i).data() + k) - *(clustersSave(i).data() + k));
+                sumDiff += *(clusters(i).data() + k) - *(clustersSave(i).data() + k);
             }
 
             *(clusters(clusterOwner).data() + k) = 255;
