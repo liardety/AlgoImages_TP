@@ -12,17 +12,16 @@
 // -> Kernel d'un pixel et de lui même = 1
 template<typename T, typename  Functor>
 struct Kernel{
-    const T m_sigmaSquare;
     Functor m_distance;
-
+    const T m_sigmaSquare;
 
     Kernel(Functor && distance, const T & sigma) :
             m_distance(std::forward<Functor>(distance)),
             m_sigmaSquare(sigma * sigma) { }
 
-    template<typename Object>
-    T operator()(Object && a, Object && b)const {
-        return std::exp(- m_distance(std::forward<Object>(a),std::forward<Object>(b)) / (m_sigmaSquare) );
+    template<typename ObjectA, typename ObjectB>
+    T operator()(ObjectA && a, ObjectB && b)const {
+        return std::exp(- m_distance(std::forward<ObjectA>(a),std::forward<ObjectB>(b)) / (m_sigmaSquare) );
     }
     
     // TODO : refaire l'implémentation en tenant compte du fait que la fonction de CImg get_distance retourne une CImg.
