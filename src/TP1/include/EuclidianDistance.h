@@ -12,7 +12,7 @@ template <typename T>
 struct EuclidianDistance : public Distance<T> {
     int _dimension;
 
-    EuclidianDistance(int dimension):_dimension(_dimension){}
+    EuclidianDistance(int dimension):_dimension(dimension){}
 
     cimg_library::CImg<T> operator()(const T && nu, const cimg_library::CImg<T> origine)const{
         return origine.get_distance(nu,_dimension);

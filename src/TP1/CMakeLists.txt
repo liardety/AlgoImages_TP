@@ -27,7 +27,14 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     set(ADDITIONAL_LIBS "mingw32")
 endif()
 
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffast-math -I /usr/X11R6/include -I ./CImg")
+    set(CMAKE_EXE_LINKER_FLAGS "-L . -L /usr/X11R6/lib  -lpthread -lX11 -lXext -Dcimg_use_xshm  -lm")
+endif()
+
 add_executable(AlgoImage ${source_files} include/Kernel.h include/Distance.h include/KFCM.h sample/KFCM.cpp include/EuclidianDistance.h)
+
 
 file(GLOB IMG "img/*")
 file(COPY ${IMG} DESTINATION ${CMAKE_BINARY_DIR}/img)
+

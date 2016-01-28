@@ -91,7 +91,7 @@ int main(int argc, char **argv) {
     CImgDisplay disp(origin,"Input Image");
     
 
-    unsigned int tailleBuffer = origin.width() * origin.height();
+    unsigned int sizeBuffer = origin.width() * origin.height();
 
     auto euclidianDistance = make_EuclidianDistance<float>(nbCluster);
     auto kernel = make_kernel(euclidianDistance,sigma);
@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
             float denomi = 0;
             float nume = 0;
 
-            for( unsigned int k = 0; k < tailleBuffer; ++k ){  // iteration sur les pixels
+            for( unsigned int k = 0; k < sizeBuffer; ++k ){  // iteration sur les pixels
 
                 float computedKernel = std::pow(*(ptrCluster + k), fuzzyCoef) * kernel(*(ptrOrigin + k), nu[i]);
                 denomi += computedKernel;
@@ -143,7 +143,7 @@ int main(int argc, char **argv) {
         */
 
         std::vector<float> Uik;
-        for( unsigned int k = 0; k < tailleBuffer; ++k){  // iteration sur les pixels
+        for( unsigned int k = 0; k < sizeBuffer; ++k){  // iteration sur les pixels
             Uik = kfcm.updateClusters(*(ptrOrigin + k), nu);
 
             for(unsigned int i = 0; i < nbCluster; ++i){  // calcul pour chaque classe
@@ -158,11 +158,11 @@ int main(int argc, char **argv) {
         std::cout << "CPU Time  = " << cpu1  - cpu0  <<  std::endl;
 
 
-        //TODO : ameliorer le calcul de somme des différence pour l'EPSILON
+        //TODO : ameliorer le calcul de somme des différences pour l'EPSILON
 
         //Filtre des clusters
         //Operation de tri des pixels : un pixel de Uik n'appartient en fin de boucle qu'à un seul cluster
-        for(unsigned int k = 0; k < tailleBuffer; ++k){
+        for(unsigned int k = 0; k < sizeBuffer; ++k){
             unsigned int clusterOwner = 0;
             float max = 0;
             for(unsigned int i = 0; i < nbCluster; ++i){  // iteration sur les classes
@@ -179,13 +179,15 @@ int main(int argc, char **argv) {
             *(clusters(clusterOwner).data() + k) = 255;
         }
 
-        for(unsigned int k = 0; k < tailleBuffer; ++k){
+        // Fixed : critère d'arrêt correct
+        epsilon = std::abs(*(clusters(0).data())) - *(clustersSave(0).data());
+        for(unsigned int k = 0; k < sizeBuffer; ++k){
             for(unsigned int i = 0; i < nbCluster; ++i){  // iteration sur les classes
                 epsilon = std::max(epsilon, std::abs(*(clusters(i).data() + k)) - *(clustersSave(i).data() + k)) ;
             }
         }
 
-        epsilon /= 255;
+//        epsilon /= 255;
         clustersSave = clusters;
         std::cout << "T : " << t << " Epsilon : " <<epsilon<<  std::endl;
 
