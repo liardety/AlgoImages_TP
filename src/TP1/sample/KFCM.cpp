@@ -1,11 +1,57 @@
 //
 // Created by Patataa on 25/01/2016.
 //
+//  Windows
+#ifdef _WIN32
+#include <Windows.h>
+double get_wall_time(){
+    LARGE_INTEGER time,freq;
+    if (!QueryPerformanceFrequency(&freq)){
+        //  Handle error
+        return 0;
+    }
+    if (!QueryPerformanceCounter(&time)){
+        //  Handle error
+        return 0;
+    }
+    return (double)time.QuadPart / freq.QuadPart;
+}
+double get_cpu_time(){
+    FILETIME a,b,c,d;
+    if (GetProcessTimes(GetCurrentProcess(),&a,&b,&c,&d) != 0){
+        //  Returns total user time.
+        //  Can be tweaked to include kernel times as well.
+        return
+                (double)(d.dwLowDateTime |
+                         ((unsigned long long)d.dwHighDateTime << 32)) * 0.0000001;
+    }else{
+        //  Handle error
+        return 0;
+    }
+}
 
+//  Posix/Linux
+#else
+#include <time.h>
+#include <sys/time.h>
+double get_wall_time(){
+    struct timeval time;
+    if (gettimeofday(&time,NULL)){
+        //  Handle error
+        return 0;
+    }
+    return (double)time.tv_sec + (double)time.tv_usec * .000001;
+}
+double get_cpu_time(){
+    return (double)clock() / CLOCKS_PER_SEC;
+}
+#endif
 #include <string>
 #include <iostream>
 #include <vector>
 #include <Distance.h>
+#include <limits>
+#include <algorithm>
 
 #include "CImg.h"
 #include "KFCM.h"
@@ -15,11 +61,11 @@
 using namespace cimg_library;
 
 static const int nbCluster = 2;
-static const unsigned int tMax = 10;
-static const double epsilon = 0.01;
+static const unsigned int tMax = 200;
+static const float EPSILON = 0.001;
 static const double fuzzyCoef = 2;
 
-static const double sigma = 1;
+static const double sigma = 150;
 
 
 int main(int argc, char **argv) {
@@ -33,27 +79,29 @@ int main(int argc, char **argv) {
     // Clusters initializing
 
     CImgList<> clusters(nbCluster, origin.width(), origin.height(), 1,1, 1.0 / float(nbCluster) );
-    CImgList<> clustersSave(clusters); // sauvegarde de l'itération précédente pour le critère d'arrêt.
-    std::vector<float> nu(nbCluster);
+    CImgList<> clustersSave(clusters); // sauvegarde de l'itération précédente pour le critaire d'arrêt.
+    std::vector<float> nu(nbCluster, 122);
 
-    // initialisation des nu
-    for(unsigned int i = 0; i < nbCluster; ++i){
-        nu.push_back((i / nbCluster) * 255.0);
+    float valueInit = 255 / nbCluster;
+    for(unsigned int i = 0; i < nbCluster; ++i) {
+        nu[i] = valueInit * i;
     }
 
-
-
-    std::cout << epsilon << std::endl;
+    std::cout << EPSILON << std::endl;
     CImgDisplay disp(origin,"Input Image");
     
 
     unsigned int tailleBuffer = origin.width() * origin.height();
-    bool end = false;
 
-    auto euclidianDistance = make_EuclidianDistance<float>(2);
+    auto euclidianDistance = make_EuclidianDistance<float>(nbCluster);
     auto kernel = make_kernel(euclidianDistance,sigma);
+    auto kfcm = make_KFCM<float>(kernel, fuzzyCoef);
 
-    for(unsigned int t = 0 ; !end && t < tMax; ++t) {  // iteration principale
+    //On definit l'epsilon comme très grande valeur
+    float epsilon = std::numeric_limits<float>::max();
+
+    //Boucle principale
+    for(unsigned int t = 0 ; epsilon > EPSILON && t < tMax; ++t) {
         
         // mise à jour des nu
         for(unsigned int i = 0; i < nbCluster; ++i) { // iteration sur les clusters
@@ -61,42 +109,86 @@ int main(int argc, char **argv) {
             const float* ptrOrigin = origin.data();
             float denomi = 0;
             float nume = 0;
+
             for( unsigned int k = 0; k < tailleBuffer; ++k ){  // iteration sur les pixels
 
-                float computedKernel = std::pow(*(ptrCluster + k), fuzzyCoef) * kernel(*(ptrOrigin + k) + 0.001, nu[i]);
+                float computedKernel = std::pow(*(ptrCluster + k), fuzzyCoef) * kernel(*(ptrOrigin + k), nu[i]);
                 denomi += computedKernel;
                 nume += computedKernel * *(ptrOrigin + k);
             }
             assert(denomi != 0);
+
             nu[i] = nume / denomi;
+            std::cout<<"Nu i : " <<i << " : " << nu[i] << std::endl;
         }
-        
 
 
-        // mise à jour des clusters 
+
+        double wall0 = get_wall_time();
+        double cpu0  = get_cpu_time();
+
+        // mise à jour des clusters
         const float* ptrOrigin = origin.data();
+/*
         for( unsigned int k = 0; k < tailleBuffer; ++k){  // iteration sur les pixels 
           float denomi = 0;
-
-          for(unsigned int j = 0; j < nbCluster; ++j){  // calcul de dénominateur nécessitant une somme pour toutes les classes
-            denomi += std::pow(1 - kernel(*(ptrOrigin + k), nu[j]) + 0.0001, -1/(fuzzyCoef-1));
+          for(unsigned int j = 0; j < nbCluster; ++j){  // calcul de dénominateur nécessitant une sommation pour toutes les classes
+            denomi += std::pow(1 - kernel(*(ptrOrigin + k), nu[j]), -1/(fuzzyCoef-1));
           }
           assert(denomi != 0);
           for(unsigned int i = 0; i < nbCluster; ++i){  // calcul pour chaque classe
             *(clusters(i).data() + k) = std::pow(1 - kernel(*(ptrOrigin + k), nu[i]),-1/(fuzzyCoef-1) ) / denomi;
           }
         }
-        
-        //test d'arrêt
+        */
 
-        float maxi = 0;
-        for(unsigned int i = 0; i < nbCluster; ++i){  // iteration sur les classes
-            for(unsigned int k = 0; k < tailleBuffer; ++k){  // iteration sur les pixels
-                maxi = std::max(maxi, float(std::abs((clusters(i).data() + k) - (clustersSave(i).data() + k))));
+        std::vector<float> Uik;
+        for( unsigned int k = 0; k < tailleBuffer; ++k){  // iteration sur les pixels
+            Uik = kfcm.updateClusters(*(ptrOrigin + k), nu);
+
+            for(unsigned int i = 0; i < nbCluster; ++i){  // calcul pour chaque classe
+                *(clusters(i).data() + k) = Uik[i];
             }
         }
-        end = (maxi < epsilon);
+
+        double wall1 = get_wall_time();
+        double cpu1  = get_cpu_time();
+
+        std::cout << "Wall Time = " << wall1 - wall0 <<  std::endl;
+        std::cout << "CPU Time  = " << cpu1  - cpu0  <<  std::endl;
+
+
+        //TODO : ameliorer le calcul de somme des différence pour l'EPSILON
+
+        //Filtre des clusters
+        //Operation de tri des pixels : un pixel de Uik n'appartient en fin de boucle qu'à un seul cluster
+        for(unsigned int k = 0; k < tailleBuffer; ++k){
+            unsigned int clusterOwner = 0;
+            float max = 0;
+            for(unsigned int i = 0; i < nbCluster; ++i){  // iteration sur les classes
+              // iteration sur les pixels
+                float * pixel = (clusters(i).data() + k);
+                float value = *pixel;
+
+                if(  value > max) {
+                    max = value;
+                    clusterOwner = i;
+                }
+                *pixel = 0;
+            }
+            *(clusters(clusterOwner).data() + k) = 255;
+        }
+
+        for(unsigned int k = 0; k < tailleBuffer; ++k){
+            for(unsigned int i = 0; i < nbCluster; ++i){  // iteration sur les classes
+                epsilon = std::max(epsilon, std::abs(*(clusters(i).data() + k)) - *(clustersSave(i).data() + k)) ;
+            }
+        }
+
+        epsilon /= 255;
         clustersSave = clusters;
+        std::cout << "T : " << t << " Epsilon : " <<epsilon<<  std::endl;
+
     }
 
 
