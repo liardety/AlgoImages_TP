@@ -24,14 +24,14 @@ struct KFCM {
     }
 
     template <typename T>
-    T intermediaryFunction(T xK, T nuI) {
-        return T(std::pow((1 - f_kernel(xK, nuI)), m_constA));
+    T intermediaryFunction(T xK, T nuI, T neib) {
+        return T(std::pow((1 - f_kernel(xK, nuI)) + neib, m_constA));
     }
     //TODO : Memorize Kernel Operation with pre computed matrix
 
 
     template <typename T>
-    std::vector<T> updateClusters(const T & xK, const std::vector<T> & nu) {
+    std::vector<T> updateClusters(const T & xK, const std::vector<T> & nu, const std::vector<T> & influence) {
         T denominator = 0;
         unsigned int sizeNu = nu.size();
 
@@ -39,7 +39,7 @@ struct KFCM {
 
         for(unsigned int i = 0; i < sizeNu; ++i) {
             //Ca être lent
-            functionMemorized[i] = intermediaryFunction(xK, nu[i]);
+            functionMemorized[i] = intermediaryFunction(xK, nu[i], influence[i]);
             denominator += functionMemorized[i];
         }
         for(unsigned int i = 0; i < sizeNu; ++i) {

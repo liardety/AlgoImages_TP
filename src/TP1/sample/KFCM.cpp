@@ -66,6 +66,8 @@ static const float EPSILON = 0.001;
 static const double fuzzyCoef = 2;
 
 static const double sigma = 150;
+static const float alpha = 0.5;  // alpha lies between 0 and 1 inclusive
+static const unsigned int nbNeighbors = 8;  // number of neighbor taken in count for the spacially constrained KFCM
 
 
 int main(int argc, char **argv) {
@@ -80,6 +82,7 @@ int main(int argc, char **argv) {
 
     CImgList<> clusters(nbCluster, origin.width(), origin.height(), 1,1, 1.0 / float(nbCluster) );
     CImgList<> clustersSave(clusters); // sauvegarde de l'itération précédente pour le critaire d'arrêt.
+    CImgList<> influence(clusters);
     std::vector<float> nu(nbCluster, 122);
 
     float valueInit = 255 / nbCluster;
@@ -141,14 +144,42 @@ int main(int argc, char **argv) {
           }
         }
         */
+        for(unsigned int i = 0; i < nbCluster; ++i){
+            CImg_3x3(I,float);
+            cimg_for3x3(clustersSave(i),x,y,0,0,I,float) {
 
+                float intermediate = 0;
+                for(unsigned int l = 0; l < nbNeighbors + 1; ++l){
+                    intermediate += std::pow((1-I[i]), fuzzyCoef);
+                }
+                intermediate -= std::pow((1-Icc), fuzzyCoef);
+
+//                float intermediate = std::pow(1-Ipp, fuzzyCoef);
+//                intermediate += std::pow(1-Ipc, fuzzyCoef);
+//                intermediate += std::pow(1-Ipn, fuzzyCoef);
+//                intermediate += std::pow(1-Ipc, fuzzyCoef);
+//                intermediate += std::pow(1-Icp, fuzzyCoef);
+//                intermediate += std::pow(1-Ipn, fuzzyCoef);
+//                intermediate += std::pow(1-Icn, fuzzyCoef);
+//                intermediate += std::pow(1-Inn, fuzzyCoef);
+
+
+                influence(i)(x,y) = ( alpha / (float)nbNeighbors ) * intermediate;
+            }
+        }
+        std::vector<float> neighborInfluence(nbCluster);
         std::vector<float> Uik;
         for( unsigned int k = 0; k < sizeBuffer; ++k){  // iteration sur les pixels
-            Uik = kfcm.updateClusters(*(ptrOrigin + k), nu);
+
+            for(unsigned int i = 0; i < nbCluster; ++i){
+                neighborInfluence.push_back(*(*(influence.data(i)) + k));
+            }
+            Uik = kfcm.updateClusters(*(ptrOrigin + k), nu, neighborInfluence);
 
             for(unsigned int i = 0; i < nbCluster; ++i){  // calcul pour chaque classe
                 *(clusters(i).data() + k) = Uik[i];
             }
+            neighborInfluence.clear();
         }
 
         double wall1 = get_wall_time();
